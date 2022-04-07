@@ -1,0 +1,38 @@
+// Conectar MySql
+mysql -h localhost -u root -p
+
+//Criar banco de dados
+CREATE DATABASE nomeDoDatabase;
+
+// Mostrar banco de dados
+SHOW DATABASES;
+
+// Acessar o banco de dados
+USE nomeDoDatabase;
+
+// Listar usuários da tabela users com 22 anos de idade
+SELECT * FROM users WHERE idade = 22;
+ 
+// Criar tabela no MySql
+CREATE TABLE users(
+    name VARCHAR(50),
+    email VARCHAR(50),
+    idade INT
+);
+
+// Inserir dados na tabela users
+INSERT INTO users(name, email, idade) VALUES (
+    "Roberto Castello",
+    "rob@gmail.com",
+    45    
+);
+
+// Listar todos os dados da tabela users
+SELECT * FROM users;
+
+// Deletar na tabela users registro com nome Roberto Castro
+DELETE FROM users WHERE name = "Param Yawanawa";
+
+//Atualizar dados na tabela
+UPDATE users SET name = "Athus Linhares Oliveira" WHERE name = "Athus Oliveira";
+
