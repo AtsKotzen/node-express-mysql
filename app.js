@@ -1,28 +1,36 @@
 const express = require('express');
 const app = express();
 const { engine } = require('express-handlebars');
-const handlebars = require('express-handlebars');
-const Sequelize = require('sequelize');
+const bodyParser = require('body-parser');
+const Post = require('./models/Post');
 
 // Config
   // Template engine
   app.engine('handlebars', engine({ extname: '.hbs', defaultLayout: "main"}));
   app.set('view engine', 'handlebars');
   app.set("views", "./views");
- 
-  // Conexão com o banco de dados
-  const sequelize = new Sequelize('sistemadecadastro', 'root', 'root', {
-    host: 'localhost',
-    dialect: 'mysql'
-})
+  // Body parser
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json()); 
 
 // Rotas
+app.get('/', (req, res) => {
+    res.render('home');
+})
+
 app.get('/cad', (req, res) => {
     res.render('formulario')
 })
 
 app.post('/add', (req, res) => {
-    res.send('Formulario recebido')
+    Post.create({
+        title: req.body.title,
+        content: req.body.content
+    }).then(() => {
+        res.redirect('/');
+    }).catch(err => {
+        res.send('Deu ruim: ' + err)
+    })    
 })
 
 app.listen(3000, () => {
